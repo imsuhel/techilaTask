@@ -9,7 +9,7 @@ const Dashboard = () => {
   const navigation = useNavigation();
   const [newsList, setNewsList] = useState([]);
   useEffect(() => {
-    // getNewsData();
+    getNewsData();
   }, []);
 
   const getNewsData = async () => {
