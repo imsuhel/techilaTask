@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import {useNavigation} from '@react-navigation/native';
 
-const DashboardHooks = () => {
+const AllProductHooks = () => {
   const navigation = useNavigation();
   const [productList, setProductList] = useState();
   const [productError, setProductErrro] = useState();
@@ -61,4 +61,4 @@ const DashboardHooks = () => {
   };
 };
 
-export {DashboardHooks};
+export {AllProductHooks};
