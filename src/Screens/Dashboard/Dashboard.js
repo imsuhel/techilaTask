@@ -67,7 +67,12 @@ const Dashboard = () => {
             onEndReached={() => fetchProducts()}
             onEndReachedThreshold={0.5}
             renderItem={({item, index}) => (
-              <ProductCard item={item} index={index} style={{width: 240}} />
+              <ProductCard
+                item={item}
+                index={index}
+                style={{width: 240}}
+                viewProduct={viewProduct}
+              />
             )}
           />
         </View>
@@ -89,7 +94,12 @@ const Dashboard = () => {
             onEndReached={() => fetchProducts()}
             onEndReachedThreshold={0.5}
             renderItem={({item, index}) => (
-              <ProductCard item={item} index={index} style={{width: 140}} />
+              <ProductCard
+                item={item}
+                index={index}
+                style={{width: 140}}
+                viewProduct={viewProduct}
+              />
             )}
           />
         </View>
