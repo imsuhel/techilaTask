@@ -38,4 +38,11 @@ export default styles = StyleSheet.create({
   mb20: {
     marginBottom: 20,
   },
+  loader: {
+    position: 'absolute',
+    bottom: 0,
+    width: '100%',
+    alignItems: 'center',
+    paddingVertical: 10,
+  },
 });

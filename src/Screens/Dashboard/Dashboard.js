@@ -6,15 +6,11 @@ import Ripple from 'react-native-material-ripple';
 import ProductCard from '../../Components/ProductCard/ProductCard';
 import {DashboardHooks} from './DashboardHooks';
 import {IMAGES} from '../../utils/Global';
+import {useNavigation} from '@react-navigation/native';
 
 const Dashboard = () => {
-  const {
-    getProductList,
-    fetchProducts,
-    productList,
-    viewProduct,
-    seeAllProduct,
-  } = DashboardHooks();
+  const navigation = useNavigation();
+  const {getProductList, fetchProducts, productList} = DashboardHooks();
 
   useEffect(() => {
     getProductList();
@@ -25,83 +21,41 @@ const Dashboard = () => {
       <Header title="Movies" />
       <ScrollView contentContainerStyle={{paddingBottom: 20}}>
         <View style={styles.mb20}>
-          <View style={styles.headingWrapper}>
-            <Text style={styles.heading}>Popular</Text>
-            <Ripple style={styles.viewBtn} onPress={() => seeAllProduct()}>
-              <Text style={styles.viewTxt}>View All</Text>
-              <Image source={IMAGES.backIcon} style={styles.viewIcon} />
-            </Ripple>
-          </View>
-          <FlatList
-            data={productList}
-            keyExtractor={item => item.id}
-            showsHorizontalScrollIndicator={false}
-            horizontal={true}
-            contentContainerStyle={{columnGap: 14}}
-            onEndReached={() => fetchProducts()}
-            onEndReachedThreshold={0.5}
-            renderItem={({item, index}) => (
-              <ProductCard
-                item={item}
-                index={index}
-                viewProduct={viewProduct}
+          {productList?.map((data, count) => (
+            <>
+              <View style={[styles.headingWrapper, count > 0 && styles.mt30]}>
+                <Text style={styles.heading}>{data.catename}</Text>
+                <Ripple
+                  style={styles.viewBtn}
+                  onPress={() => navigation.navigate('AllProduct')}>
+                  <Text style={styles.viewTxt}>View All</Text>
+                  <Image source={IMAGES.backIcon} style={styles.viewIcon} />
+                </Ripple>
+              </View>
+              <FlatList
+                data={data.data}
+                key={data.catename}
+                keyExtractor={item => item.id}
+                showsHorizontalScrollIndicator={false}
+                horizontal={true}
+                contentContainerStyle={{columnGap: 14}}
+                renderItem={({item, index}) => (
+                  <>
+                    <ProductCard
+                      item={item}
+                      index={index}
+                      viewProduct={() =>
+                        navigation.navigate('ProductDetails', {
+                          productData: item,
+                        })
+                      }
+                      style={[count % 2 == 0 ? {width: 240} : {width: 150}]}
+                    />
+                  </>
+                )}
               />
-            )}
-          />
-        </View>
-
-        <View style={styles.mb20}>
-          <View style={styles.headingWrapper}>
-            <Text style={styles.heading}>Playing In Theatres</Text>
-            <Ripple style={styles.viewBtn} onPress={() => seeAllProduct()}>
-              <Text style={styles.viewTxt}>View All</Text>
-              <Image source={IMAGES.backIcon} style={styles.viewIcon} />
-            </Ripple>
-          </View>
-          <FlatList
-            data={productList}
-            showsHorizontalScrollIndicator={false}
-            keyExtractor={item => item.id}
-            horizontal={true}
-            contentContainerStyle={{columnGap: 14}}
-            onEndReached={() => fetchProducts()}
-            onEndReachedThreshold={0.5}
-            renderItem={({item, index}) => (
-              <ProductCard
-                item={item}
-                index={index}
-                style={{width: 240}}
-                viewProduct={viewProduct}
-              />
-            )}
-          />
-        </View>
-
-        <View style={styles.mb20}>
-          <View style={styles.headingWrapper}>
-            <Text style={styles.heading}>Trending</Text>
-            <Ripple style={styles.viewBtn} onPress={() => seeAllProduct()}>
-              <Text style={styles.viewTxt}>View All</Text>
-              <Image source={IMAGES.backIcon} style={styles.viewIcon} />
-            </Ripple>
-          </View>
-          <FlatList
-            data={productList}
-            showsHorizontalScrollIndicator={false}
-            keyExtractor={item => item.id}
-            horizontal={true}
-            contentContainerStyle={{columnGap: 14}}
-            onEndReached={() => fetchProducts()}
-            onEndReachedThreshold={0.5}
-            renderItem={({item, index}) => (
-              <ProductCard
-                item={item}
-                index={index}
-                style={{width: 140}}
-                viewProduct={viewProduct}
-              />
-            )}
-          />
+            </>
+          ))}
         </View>
       </ScrollView>
     </View>

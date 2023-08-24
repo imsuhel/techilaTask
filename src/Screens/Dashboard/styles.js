@@ -14,11 +14,13 @@ export default styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingTop: 20,
     paddingBottom: 14,
+    width: '100%',
   },
   heading: {
     color: COLORS.BRIGHTGRAY,
     fontSize: 16,
     fontWeight: 'bold',
+    textTransform: 'capitalize',
   },
   viewBtn: {
     flexDirection: 'row',
@@ -37,5 +39,8 @@ export default styles = StyleSheet.create({
   },
   mb20: {
     marginBottom: 20,
+  },
+  mt30: {
+    marginTop: 30,
   },
 });

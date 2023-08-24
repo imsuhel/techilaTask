@@ -2,9 +2,8 @@ import {
   View,
   Text,
   FlatList,
-  ScrollView,
   Dimensions,
-  Image,
+  ActivityIndicator,
 } from 'react-native';
 import React, {useEffect} from 'react';
 import styles from './styles';
@@ -14,40 +13,46 @@ import {useNavigation, useRoute} from '@react-navigation/native';
 import Carousel from 'react-native-reanimated-carousel';
 import Header from '../../Components/Header/Header';
 import ProductCard from '../../Components/ProductCard/ProductCard';
+import {COLORS} from '../../utils/Global';
 
 const AllProduct = () => {
+  const navigation = useNavigation();
   const width = Dimensions.get('window').width;
-  const {
-    getProductList,
-    fetchProducts,
-    productList,
-    viewProduct,
-    seeAllProduct,
-  } = AllProductHooks();
+  const {fetchProducts, productList, isLoading} = AllProductHooks();
 
   useEffect(() => {
-    getProductList();
+    fetchProducts();
+    console.log(productList, '222');
   }, []);
 
   return (
     <View style={styles.mainWrapper}>
       <Header title="All Products" canBack={true} />
-      <Carousel
-        loop
-        width={width}
-        style={{marginTop: 30}}
-        autoPlay={true}
+      <FlatList
         data={productList}
-        scrollAnimationDuration={1000}
-        autoPlayInterval={5000}
+        keyExtractor={item => item.id}
+        numColumns={2}
+        columnWrapperStyle={{paddingHorizontal: 14, marginTop: 15}}
+        onEndReached={() => fetchProducts()}
+        onEndReachedThreshold={0.5}
         renderItem={({item, index}) => (
           <ProductCard
+            key={index}
             item={item}
-            viewProduct={viewProduct}
-            style={{width: '90%', alignSelf: 'center'}}
+            style={{width: '48%'}}
+            viewProduct={() =>
+              navigation.navigate('ProductDetails', {
+                productData: item,
+              })
+            }
           />
         )}
       />
+      {isLoading && (
+        <View style={styles.loader}>
+          <ActivityIndicator size="large" color={COLORS.BRIGHTGRAY} />
+        </View>
+      )}
     </View>
   );
 };

@@ -6,11 +6,11 @@ import Ripple from 'react-native-material-ripple';
 const ProductCard = ({item, index, style, viewProduct}) => {
   return (
     <Ripple
-      onPress={() => viewProduct(item.thumbnail)}
+      onPress={() => viewProduct()}
       style={[
         styles.productCard,
         style,
-        index == 0 ? {marginHorizontal: 10} : {marginRight: 10},
+        index == 0 ? {marginHorizontal: 20} : {marginRight: 10},
       ]}>
       <Image source={{uri: item.thumbnail}} style={styles.productImg} />
       <Text numberOfLines={1} style={styles.productTitle}>

@@ -7,7 +7,7 @@ export default styles = StyleSheet.create({
     height: '100%',
     backgroundColor: COLORS.PRIMARY,
   },
-  headingWrapper: {
+  row: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
@@ -17,25 +17,23 @@ export default styles = StyleSheet.create({
   },
   heading: {
     color: COLORS.BRIGHTGRAY,
-    fontSize: 16,
+    fontSize: 24,
     fontWeight: 'bold',
+    textTransform: 'capitalize',
   },
-  viewBtn: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-  },
-  viewIcon: {
-    width: 14,
-    height: 10,
-    resizeMode: 'contain',
-    marginLeft: 6,
-  },
-  viewTxt: {
-    color: COLORS.ALICEBLUE,
+  discount: {
+    color: COLORS.BRIGHTGRAY,
     fontSize: 12,
   },
-  mb20: {
-    marginBottom: 20,
+  price: {
+    color: COLORS.ALICEBLUE,
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+  desc: {
+    color: COLORS.ALICEBLUE,
+    fontSize: 14,
+    fontWeight: 'bold',
+    paddingHorizontal: 10,
   },
 });
