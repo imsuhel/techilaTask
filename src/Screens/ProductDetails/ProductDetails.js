@@ -8,29 +8,14 @@ const ProductDetails = () => {
   const route = useRoute();
   const navigation = useNavigation();
   const {productData} = route.params;
-  const [sliderImage, setSliderImage] = useState([]);
-
-  useEffect(() => {
-    extractImages();
-  }, []);
-
-  const extractImages = async () => {
-    const imageUrls = productData.images.map(url => ({url}));
-    setSliderImage(imageUrls);
-  };
 
   return (
     <View style={styles.mainWrapper}>
       <View style={{height: 300}}>
         <ImageViewer
-          imageUrls={[
-            {url: 'https://i.dummyjson.com/data/products/1/1.jpg'},
-            {url: 'https://i.dummyjson.com/data/products/1/2.jpg'},
-            {url: 'https://i.dummyjson.com/data/products/1/3.jpg'},
-            {url: 'https://i.dummyjson.com/data/products/1/4.jpg'},
-            {url: 'https://i.dummyjson.com/data/products/1/thumbnail.jpg'},
-          ]}
-          renderImage={props => <Image {...props} />}
+          imageUrls={productData.images.map(e => {
+            return {url: e};
+          })}
         />
       </View>
 
